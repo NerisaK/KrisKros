@@ -1,0 +1,68 @@
+* {box-sizing: border-box;}
+
+body {background-color:hsl(27, 83%, 93%); font-family: 'Quicksand', sans-serif;}
+
+header {margin: 20px auto 30px 210px;}
+
+button {
+    width: 2.5em;
+    height: 2.5em;
+}
+
+.board button {
+    background-color: hsl(34, 57%, 70%);
+    border-top: 2px solid hsl(34, 57%, 65%);
+    border-right: 2px solid hsl(34, 50%, 50%);
+    border-bottom: 2px solid hsl(34, 50%, 50%);
+    border-left: 2px solid hsl(34, 57%, 65%);
+}
+
+.board button:hover {
+    background-color: hsl(34, 57%, 60%);
+    border-top: 2px solid hsl(34, 57%, 50%);
+    border-left: 2px solid hsl(34, 57%, 50%);
+}
+
+.letters button {margin: 10px 2px;}
+.letters div {display: inline-block;}
+
+.letter {
+    background-color: hsl(49, 97%, 80%);
+    border-top: 2px solid hsl(49, 80%, 75%);
+    border-right: 2px solid hsl(49, 80%, 65%);
+    border-bottom: 2px solid hsl(49, 80%, 46%);
+    border-left: 2px solid hsl(49, 80%, 75%);
+    text-transform: uppercase;
+}
+.letter:hover {background-color: hsl(49, 97%, 65%);}
+
+.cancel {
+    width: 3.5em;
+    background-color: hsl(0, 71%, 58%);
+    border-top: 2px solid hsl(0, 71%, 53%);
+    border-right: 2px solid hsl(0, 71%, 43%);
+    border-bottom: 2px solid hsl(0, 71%, 43%);
+    border-left: 2px solid hsl(0, 71%, 53%);
+}
+.cancel:hover {background-color: hsl(0, 71%, 48%);}
+
+.send {
+    width: 3.5em;
+    background-color: hsl(120, 39%, 55%);
+    border-top: 2px solid hsl(120, 39%, 50%);
+    border-right: 2px solid hsl(120, 39%, 40%);
+    border-bottom: 2px solid hsl(120, 39%, 40%);
+    border-left: 2px solid hsl(120, 39%, 50%);
+}
+.send:hover {background-color: hsl(120, 39%, 45%);}
+
+#newLetters {
+    width: 9em;
+    background-color: hsl(29, 71%, 59%);
+    border-top: 2px solid hsl(29, 71%, 50%);
+    border-right: 2px solid hsl(29, 71%, 40%);
+    border-bottom: 2px solid hsl(29, 71%, 40%);
+    border-left: 2px solid hsl(29, 71%, 50%);
+}
+#newLetters:hover {background-color: hsl(29, 71%, 50%);}
+
