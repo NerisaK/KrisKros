@@ -52,7 +52,7 @@ function dropElement(nodeList) {
         node.addEventListener("dragover", (e) => {
             e.preventDefault();
             const letter = document.querySelector(".dragging");
-            node.appendChild(letter);
+            if (!node.firstChild) {node.appendChild(letter);}
         })
     })
 }
