@@ -1,15 +1,32 @@
 * {box-sizing: border-box;}
 
-body {background-color:hsl(27, 83%, 93%); font-family: 'Quicksand', sans-serif;}
-
-header {margin: 20px auto 30px 210px;}
-
-button {
-    width: 2.5em;
-    height: 2.5em;
+body {
+    background-color:hsl(27, 83%, 96%);
+    font-family: 'Quicksand', sans-serif;
+    color: hsl(34, 57%, 20%);
 }
 
-.board button {
+.visible {visibility: visible;}
+.hidden {visibility: hidden;}
+
+header {margin: auto; text-align: center;}
+h1 {margin: 15px auto;}
+
+.game {
+    max-width: 70%;
+    margin: 0 auto;
+    border: 3px ridge hsl(34, 57%, 50%);
+    padding: 1.5rem 1.5rem 1rem 1.5rem;
+    background-color:hsl(27, 83%, 93%);
+}
+
+.boardRow {margin: 0 auto;}
+
+.square, .letter, .letterSquare {width: 2rem; height: 2rem;} 
+
+.square {    
+    display: inline-block;
+    margin: 0 2px;
     background-color: hsl(34, 57%, 70%);
     border-top: 2px solid hsl(34, 57%, 65%);
     border-right: 2px solid hsl(34, 50%, 50%);
@@ -17,16 +34,21 @@ button {
     border-left: 2px solid hsl(34, 57%, 65%);
 }
 
-.board button:hover {
+.square:hover {
     background-color: hsl(34, 57%, 60%);
     border-top: 2px solid hsl(34, 57%, 50%);
     border-left: 2px solid hsl(34, 57%, 50%);
 }
 
-.letters button {margin: 10px 2px;}
-.letters div {display: inline-block;}
+.boardRow:nth-of-type(8) span {background-color: hsl(34, 57%, 60%);}
+.boardRow span:nth-of-type(8) {background-color: hsl(34, 57%, 60%);}
+.boardRow:nth-of-type(8) span:hover {background-color: hsl(34, 57%, 50%);}
+.boardRow span:nth-of-type(8):hover {background-color: hsl(34, 57%, 50%);}
+
+.letters div {display: inline-block; margin-top: 1.5rem;}
 
 .letter {
+    margin: 0 2px;    
     background-color: hsl(49, 97%, 80%);
     border-top: 2px solid hsl(49, 80%, 75%);
     border-right: 2px solid hsl(49, 80%, 65%);
@@ -36,28 +58,29 @@ button {
 }
 .letter:hover {background-color: hsl(49, 97%, 65%);}
 
-.cancel {
-    width: 3.5em;
+#cancel, #send {width: 3rem; height: 2rem;}
+
+#cancel {    
     background-color: hsl(0, 71%, 58%);
     border-top: 2px solid hsl(0, 71%, 53%);
     border-right: 2px solid hsl(0, 71%, 43%);
     border-bottom: 2px solid hsl(0, 71%, 43%);
     border-left: 2px solid hsl(0, 71%, 53%);
 }
-.cancel:hover {background-color: hsl(0, 71%, 48%);}
+#cancel:hover {background-color: hsl(0, 71%, 48%);}
 
-.send {
-    width: 3.5em;
+#send {
     background-color: hsl(120, 39%, 55%);
     border-top: 2px solid hsl(120, 39%, 50%);
     border-right: 2px solid hsl(120, 39%, 40%);
     border-bottom: 2px solid hsl(120, 39%, 40%);
     border-left: 2px solid hsl(120, 39%, 50%);
 }
-.send:hover {background-color: hsl(120, 39%, 45%);}
+#send:hover {background-color: hsl(120, 39%, 45%);}
 
 #newLetters {
-    width: 9em;
+    width: 7rem;
+    height: 2rem;
     background-color: hsl(29, 71%, 59%);
     border-top: 2px solid hsl(29, 71%, 50%);
     border-right: 2px solid hsl(29, 71%, 40%);
