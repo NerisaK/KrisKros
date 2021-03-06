@@ -6,13 +6,12 @@ body {
     color: hsl(34, 57%, 20%);
 }
 
-.visible {visibility: visible;}
-.hidden {visibility: hidden;}
-
 header {margin: auto; text-align: center;}
 h1 {margin: 15px auto;}
 
 .game {
+    display: grid;
+    grid-template-columns: 60% 40%;
     max-width: 70%;
     margin: 0 auto;
     border: 3px ridge hsl(34, 57%, 50%);
@@ -20,12 +19,16 @@ h1 {margin: 15px auto;}
     background-color:hsl(27, 83%, 93%);
 }
 
+.board {grid-column: 1; max-width: 540px;}
+.playerControls {grid-column: 2;}
+
 .boardRow {margin: 0 auto;}
 
-.square, .letter, .letterSquare {width: 2rem; height: 2rem;} 
+.square, .letter, .letterSquare, .lettersRow span {width: 2rem; height: 2rem;} 
 
 .square {    
     display: inline-block;
+    position:static;
     margin: 0 2px;
     background-color: hsl(34, 57%, 70%);
     border-top: 2px solid hsl(34, 57%, 65%);
@@ -40,15 +43,17 @@ h1 {margin: 15px auto;}
     border-left: 2px solid hsl(34, 57%, 50%);
 }
 
+.boardRow {display: flex; padding: 2px; align-content: flex-start;}
 .boardRow:nth-of-type(8) span {background-color: hsl(34, 57%, 60%);}
 .boardRow span:nth-of-type(8) {background-color: hsl(34, 57%, 60%);}
 .boardRow:nth-of-type(8) span:hover {background-color: hsl(34, 57%, 50%);}
 .boardRow span:nth-of-type(8):hover {background-color: hsl(34, 57%, 50%);}
 
-.letters div {display: inline-block; margin-top: 1.5rem;}
+.lettersRow {margin-top: 0.8rem; display: flex; padding: 2px; align-content: flex-start; justify-content: space-evenly;}
 
-.letter {
-    margin: 0 2px;    
+.lettersRow span {display: inline-block;}
+
+.letter {        
     background-color: hsl(49, 97%, 80%);
     border-top: 2px solid hsl(49, 80%, 75%);
     border-right: 2px solid hsl(49, 80%, 65%);
@@ -56,7 +61,7 @@ h1 {margin: 15px auto;}
     border-left: 2px solid hsl(49, 80%, 75%);
     text-transform: uppercase;
 }
-.letter:hover {background-color: hsl(49, 97%, 65%);}
+.letter:hover {background-color: hsl(49, 97%, 65%); cursor: move;}
 
 #cancel, #send {width: 3rem; height: 2rem;}
 
@@ -81,6 +86,7 @@ h1 {margin: 15px auto;}
 #newLetters {
     width: 7rem;
     height: 2rem;
+    font-size: 0.75em;
     background-color: hsl(29, 71%, 59%);
     border-top: 2px solid hsl(29, 71%, 50%);
     border-right: 2px solid hsl(29, 71%, 40%);
@@ -89,3 +95,6 @@ h1 {margin: 15px auto;}
 }
 #newLetters:hover {background-color: hsl(29, 71%, 50%);}
 
+.visible {visibility: visible;}
+.hidden {visibility: hidden;}
+.noBorder {border: none;}
