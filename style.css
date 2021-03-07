@@ -102,7 +102,7 @@ h2 {margin: 0 0 30px 0;}
 #newLetters:disabled:hover {background-color: hsl(29, 71%, 60%); cursor: initial;}
 
 .visible {visibility: visible;}
-.hidden {visibility: hidden;}
+.hidden {display: none;}
 .noBorder {border: none;}
 .noBorder:hover {border: none;}
 .placed {background-color: hsl(49, 97%, 70%);}
