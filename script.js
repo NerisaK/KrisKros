@@ -2,11 +2,11 @@
 
 
 const boardBody = document.querySelector("#boardBody");
-const playersLetters = document.querySelectorAll(".letter"); 
 const newLettersButton = document.querySelector("#newLetters");
 const cancelButton = document.querySelector("#cancel");
 const sendButton = document.querySelector("#send");
 const letterSpans = document.querySelectorAll(".lettersRow span");
+const showScore = document.querySelector("#myScore");
 let playerScore = 0;
 
 
@@ -96,21 +96,47 @@ function randomLetter() {
     return letter;       
 };
 
-//Assign random letters to player, but only available letters and only if there are some letters left
-function giveLetters () {
-    for (letter of playersLetters){
-        let rdmLetter = randomLetter();
-            while (rdmLetter.current <= 0) {
-                if (anyLettersLeft() == true) {
-                rdmLetter = randomLetter();
-                } else {newLettersButton.disabled = true; return console.log("No letters left!"); }
-            }
-        letter.innerText = rdmLetter.value;
-        rdmLetter.current--;
-    } 
-};
+//Choose random letter, but only from available letters and only if there are some letters left
+function chooseLetter () {
+    let rdmLetter = randomLetter();
+    while (rdmLetter.current <= 0) {
+        if (anyLettersLeft() == true) {
+            rdmLetter = randomLetter();
+        } else {newLettersButton.disabled = true; return console.log("No letters left!"); }
+    }
+    return rdmLetter;
+}; 
+
+//Create draggable buttons with random letters
+function giveLetters() {
+    for (span of letterSpans) {
+        if (!span.firstChild) {
+            const newButton = document.createElement("button");
+            newButton.className += "letter active";
+            newButton.draggable = true;
+            const newLetter = chooseLetter();
+            newButton.innerHTML = newLetter.value;
+            const pointsSpan = document.createElement("span");
+            pointsSpan.className += "points";
+            pointsSpan.innerHTML = newLetter.points;
+            newLetter.current--
+            newButton.appendChild(pointsSpan);
+            span.appendChild(newButton);
+        }
+    }
+    playersLetters = document.querySelectorAll(".active");    
+} 
 
 giveLetters();
+
+//Change letters for other available ones
+function changeLetters () {    
+    for (letter of playersLetters){
+        const anotherLetter = chooseLetter();
+        letter.innerText = anotherLetter.value;
+        anotherLetter.current--
+    } 
+};
 
 
 
@@ -147,8 +173,35 @@ dropElement(letterSpans);
 
 
 
+// *** Ending the turn *** //
+
+
+function placeLetters() {
+    for (letter of playersLetters) {
+        if (letter.parentElement.className == "square"){
+            letter.classList.add("placed");
+            letter.classList.remove("active");
+            letter.draggable = false;
+            letter.parentElement.classList.add("noBorder");
+            let score = parseInt(letter.firstElementChild.innerHTML);
+            playerScore += score;            
+            showScore.innerHTML = playerScore;
+        }
+    }
+}
+
+
+
 // *** Buttons and controls *** //
 
 
 //Change letters when player clicks the button
-newLettersButton.addEventListener("click", giveLetters); 
+newLettersButton.addEventListener("click", changeLetters);
+
+//Place letters when player clicks the button 
+sendButton.addEventListener("click", () => {
+    placeLetters();
+    giveLetters();
+}); 
+
+// !!Currently there's an issue with letters assigned after placeLetter's been called, those new letters can't be dropped: "Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'."

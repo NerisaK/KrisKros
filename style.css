@@ -26,7 +26,7 @@ h2 {margin: 0 0 30px 0;}
 
 .boardRow {margin: 0 auto;}
 
-.square, .letter, .letterSquare, .lettersRow span {width: 2rem; height: 2rem;} 
+.square, .letter, .letSQ, .lettersRow span {width: 2rem; height: 2rem;} 
 
 .square {    
     display: inline-block;
@@ -65,6 +65,8 @@ h2 {margin: 0 0 30px 0;}
 }
 .letter:hover {background-color: hsl(49, 97%, 65%); cursor: move;}
 
+.points {font-size: 0.8em; float: right;}
+
 #cancel, #send {width: 3rem; height: 2rem;}
 
 #cancel {    
@@ -102,3 +104,6 @@ h2 {margin: 0 0 30px 0;}
 .visible {visibility: visible;}
 .hidden {visibility: hidden;}
 .noBorder {border: none;}
+.noBorder:hover {border: none;}
+.placed {background-color: hsl(49, 97%, 70%);}
+.placed:hover {cursor: auto; background-color: hsl(49, 97%, 70%);}
