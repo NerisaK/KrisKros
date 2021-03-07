@@ -5,7 +5,7 @@ const boardBody = document.querySelector("#boardBody");
 const newLettersButton = document.querySelector("#newLetters");
 const cancelButton = document.querySelector("#cancel");
 const sendButton = document.querySelector("#send");
-const letterSpans = document.querySelectorAll(".lettersRow span");
+const letterSpans = document.querySelectorAll(".letSQ");
 const showScore = document.querySelector("#myScore");
 let playerScore = 0;
 
@@ -189,7 +189,7 @@ function placeLetters() {
         }
     }
 }
-
+//Word is not placed all at once now, the button has to be clicked for every letter -_-
 
 
 // *** Buttons and controls *** //
