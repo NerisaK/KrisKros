@@ -8,6 +8,7 @@ body {
 
 header {margin: auto; text-align: center;}
 h1 {margin: 15px auto;}
+h2 {margin: 0 0 30px 0;}
 
 .game {
     display: grid;
@@ -20,7 +21,8 @@ h1 {margin: 15px auto;}
 }
 
 .board {grid-column: 1; max-width: 540px;}
-.playerControls {grid-column: 2;}
+.playerControls {grid-column: 2; margin: 0 30px; text-align: center;}
+.playerControls p {font-size: 1.2em;}
 
 .boardRow {margin: 0 auto;}
 
@@ -72,7 +74,7 @@ h1 {margin: 15px auto;}
     border-bottom: 2px solid hsl(0, 71%, 43%);
     border-left: 2px solid hsl(0, 71%, 53%);
 }
-#cancel:hover {background-color: hsl(0, 71%, 48%);}
+#cancel:hover {background-color: hsl(0, 71%, 48%); cursor: pointer;}
 
 #send {
     background-color: hsl(120, 39%, 55%);
@@ -81,7 +83,7 @@ h1 {margin: 15px auto;}
     border-bottom: 2px solid hsl(120, 39%, 40%);
     border-left: 2px solid hsl(120, 39%, 50%);
 }
-#send:hover {background-color: hsl(120, 39%, 45%);}
+#send:hover {background-color: hsl(120, 39%, 45%); cursor: pointer;}
 
 #newLetters {
     width: 7rem;
@@ -93,7 +95,9 @@ h1 {margin: 15px auto;}
     border-bottom: 2px solid hsl(29, 71%, 40%);
     border-left: 2px solid hsl(29, 71%, 50%);
 }
-#newLetters:hover {background-color: hsl(29, 71%, 50%);}
+#newLetters:hover {background-color: hsl(29, 71%, 50%); cursor: pointer;}
+#newLetters:disabled {background-color: hsl(29, 71%, 60%); color: hsl(34, 57%, 35%);}
+#newLetters:disabled:hover {background-color: hsl(29, 71%, 60%); cursor: initial;}
 
 .visible {visibility: visible;}
 .hidden {visibility: hidden;}

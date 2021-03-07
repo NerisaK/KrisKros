@@ -16,19 +16,22 @@
             <div id="boardBody"></div>            
             <div class="lettersRow">
                 <button id="cancel">&#10005;</button>
-                <span><button class="letter letter1" draggable="true">H</button></span>
-                <span><button class="letter letter5" draggable="true">A</button></span>
-                <span><button class="letter letter2" draggable="true">B</button></span>
-                <span><button class="letter letter6" draggable="true">I</button></span>
-                <span><button class="letter letter7" draggable="true">E</button></span>
-                <span><button class="letter letter3" draggable="true">C</button></span>
-                <span><button class="letter letter8" draggable="true">O</button></span>
-                <span><button class="letter letter4" draggable="true">D</button></span>
+                <span id = "letSQ letSpan1"><button class="letter active" draggable="true">H</button></span>
+                <span id = "letSQ letSpan2"><button class="letter active" draggable="true">A</button></span>
+                <span id = "letSQ letSpan3"><button class="letter active" draggable="true">B</button></span>
+                <span id = "letSQ letSpan4"><button class="letter active" draggable="true">I</button></span>
+                <span id = "letSQ letSpan5"><button class="letter active" draggable="true">E</button></span>
+                <span id = "letSQ letSpan6"><button class="letter active" draggable="true">C</button></span>
+                <span id = "letSQ letSpan7"><button class="letter active" draggable="true">O</button></span>
+                <span id = "letSQ letSpan8"><button class="letter active" draggable="true">D</button></span>
                 <button id="send">&#10003;</button>
                 <button id="newLetters">Vyměň písmena</button>
             </div>
         </section>        
-        <section class="playerControls"></section>
+        <section class="playerControls">
+            <h2>Player 1</h2>
+            <p>Current score: <span id="myScore">0</span></p>
+        </section>
     </section>
     <script src="script.js"></script>
 </body>
