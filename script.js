@@ -74,6 +74,9 @@ function generateBoard() {
 
 generateBoard();
 
+//Choose all game board squares
+const allSquares = document.querySelectorAll(".square");
+
 
 
 // *** Generating and assigning letters to the player *** //
@@ -115,34 +118,45 @@ function giveLetters() {
             newButton.className += "letter active";
             newButton.draggable = true;
             const newLetter = chooseLetter();
-            newButton.innerHTML = newLetter.value;
+            newButton.innerText = newLetter.value;
             const pointsSpan = document.createElement("span");
             pointsSpan.className += "points";
-            pointsSpan.innerHTML = newLetter.points;
+            pointsSpan.innerText = newLetter.points;
             newLetter.current--
             newButton.appendChild(pointsSpan);
             span.appendChild(newButton);
         }
     }
-    playersLetters = document.querySelectorAll(".active");    
+    playersLetters = document.querySelectorAll(".active");
+    dragDrop();    
 } 
 
 giveLetters();
 
-//Change letters for other available ones
-function changeLetters () {    
-    for (letter of playersLetters){
-        const anotherLetter = chooseLetter();
-        letter.innerText = anotherLetter.value;
-        anotherLetter.current--
-    } 
+//Change letters for other available ones, it costs 5 pts. and player can't have less then 0 pts.
+function changeLetters () {
+    if (playerScore >= 5) {        
+        for (letter of playersLetters){
+            //Making old letters available again - currently not working
+            //let thisLetter = letter.innerText;
+            //let index = alphabet.findIndex(obj => obj.value == thisLetter);
+            //alphabet[index].current--;
+
+            const anotherLetter = chooseLetter();
+            letter.innerText = anotherLetter.value;
+            anotherLetter.current--;
+        }
+        playerScore = playerScore - 5;           
+        showScore.innerText = playerScore;
+    }
+    else console.log("Not enough points!");
 };
 
 
 
 // *** Making letters draggable *** //
 
-
+function dragDrop () {
 //Add class to currently dragged letter, so it can be targeted, remove class after player drops it
 playersLetters.forEach(letter => {
     letter.addEventListener("dragstart", () => {
@@ -154,8 +168,6 @@ playersLetters.forEach(letter => {
     })
 });
 
-//Choose all game board squares
-const allSquares = document.querySelectorAll(".square");
 
 //Allow player to drop the letter to a free square on game board or to a free spot among other available letters
 function dropElement(nodeList) {
@@ -170,26 +182,28 @@ function dropElement(nodeList) {
 
 dropElement(allSquares);
 dropElement(letterSpans);
+}
 
+dragDrop();
 
-
-// *** Ending the turn *** //
+// *** Ending the turn and scoring *** //
 
 
 function placeLetters() {
+    playersLetters = document.querySelectorAll(".active");
     for (letter of playersLetters) {
         if (letter.parentElement.className == "square"){
             letter.classList.add("placed");
             letter.classList.remove("active");
             letter.draggable = false;
             letter.parentElement.classList.add("noBorder");
-            let score = parseInt(letter.firstElementChild.innerHTML);
+            let score = parseInt(letter.firstElementChild.innerText);
             playerScore += score;            
-            showScore.innerHTML = playerScore;
+            showScore.innerText = playerScore;
         }
     }
 }
-//Word is not placed all at once now, the button has to be clicked for every letter -_-
+
 
 
 // *** Buttons and controls *** //
@@ -203,5 +217,3 @@ sendButton.addEventListener("click", () => {
     placeLetters();
     giveLetters();
 }); 
-
-// !!Currently there's an issue with letters assigned after placeLetter's been called, those new letters can't be dropped: "Uncaught TypeError: Failed to execute 'appendChild' on 'Node': parameter 1 is not of type 'Node'."
