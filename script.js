@@ -6,9 +6,12 @@ const newLettersButton = document.querySelector("#newLetters");
 const cancelButton = document.querySelector("#cancel");
 const sendButton = document.querySelector("#send");
 const letterSpans = document.querySelectorAll(".letSQ");
+const currentIndexes = [];
 const showScore = document.querySelector("#myScore");
+let playersLetters;
 let playerScore = 0;
 
+function selectActive() {playersLetters = document.querySelectorAll(".active");}
 
 //All available czech letters, points for using them and how many are there in the game
 const alphabet = [
@@ -95,39 +98,42 @@ function anyLettersLeft() {
 
 //Generate random letter
 function randomLetter() {
-    let letter = alphabet[Math.floor(Math.random() * alphabet.length)]    
-    return letter;       
+    let letterIndex = Math.floor(Math.random() * alphabet.length);    
+    return letterIndex;       
 };
 
 //Choose random letter, but only from available letters and only if there are some letters left
 function chooseLetter () {
     let rdmLetter = randomLetter();
-    while (rdmLetter.current <= 0) {
-        if (anyLettersLeft() == true) {
+    while (alphabet[rdmLetter].current <= 0) {
+        if (anyLettersLeft() === true) {
             rdmLetter = randomLetter();
-        } else {newLettersButton.disabled = true; return console.log("No letters left!"); }
+        } else {newLettersButton.disabled = true; return console.log("No letters left!");}
     }
     return rdmLetter;
 }; 
 
 //Create draggable buttons with random letters
 function giveLetters() {
-    for (span of letterSpans) {
+    for (let i = 0; i < 8; i++) {
+        let span = document.querySelector(`.letSQ${i}`);
         if (!span.firstChild) {
+            const newLetterIndex = chooseLetter();
+            currentIndexes[i] = parseInt(newLetterIndex);
+            const newLetter = alphabet[newLetterIndex];
+            newLetter.current--
             const newButton = document.createElement("button");
             newButton.className += "letter active";
             newButton.draggable = true;
-            const newLetter = chooseLetter();
             newButton.innerText = newLetter.value;
             const pointsSpan = document.createElement("span");
             pointsSpan.className += "points";
             pointsSpan.innerText = newLetter.points;
-            newLetter.current--
             newButton.appendChild(pointsSpan);
             span.appendChild(newButton);
         }
     }
-    playersLetters = document.querySelectorAll(".active");
+    selectActive();
     dragDrop();    
 } 
 
@@ -135,24 +141,36 @@ giveLetters();
 
 //Change letters for other available ones, it costs 5 pts. and player can't have less then 0 pts.
 function changeLetters () {
-    if (playerScore >= 5) {        
-        for (letter of playersLetters){
-            //Making old letters available again - currently not working
-            //let thisLetter = letter.innerText;
-            //let index = alphabet.findIndex(obj => obj.value == thisLetter);
-            //alphabet[index].current--;
-
-            const anotherLetter = chooseLetter();
-            letter.innerText = anotherLetter.value;
-            anotherLetter.current--;
+    if (playerScore >= 5) {
+        restartTurn();        
+        for (let i = 0; i < currentIndexes.length; i++) {
+            let index = currentIndexes[i];
+            alphabet[index].current++
+        }
+        selectActive();
+        for (letter of playersLetters) {
+            letter.remove();
         }
         playerScore = playerScore - 5;           
         showScore.innerText = playerScore;
+        giveLetters();
     }
     else console.log("Not enough points!");
 };
 
-
+//All active letters are taken down from the game board
+function restartTurn() {
+    selectActive();
+    for (letter of playersLetters) {
+        if (letter.parentElement.className === "square"){
+            for (span of letterSpans) {
+                if (!span.firstChild) {
+                    span.appendChild(letter);                    
+                } 
+            }
+        }
+    }
+}
 
 // *** Making letters draggable *** //
 
@@ -186,13 +204,15 @@ dropElement(letterSpans);
 
 dragDrop();
 
+
+
 // *** Ending the turn and scoring *** //
 
 
 function placeLetters() {
-    playersLetters = document.querySelectorAll(".active");
+    selectActive();
     for (letter of playersLetters) {
-        if (letter.parentElement.className == "square"){
+        if (letter.parentElement.className === "square"){
             letter.classList.add("placed");
             letter.classList.remove("active");
             letter.draggable = false;
@@ -209,6 +229,9 @@ function placeLetters() {
 // *** Buttons and controls *** //
 
 
+//Take letters off the board when player clicks the button
+cancelButton.addEventListener("click", restartTurn);
+
 //Change letters when player clicks the button
 newLettersButton.addEventListener("click", changeLetters);
 
@@ -217,3 +240,30 @@ sendButton.addEventListener("click", () => {
     placeLetters();
     giveLetters();
 }); 
+
+
+
+// *** What's left to do: *** //
+//
+//  * The game should have a dictionary and check if words are valid
+//  * It should only be possible to end player's turn if all words on the board are valid
+//  * The game should tell player which words are not valid, so he can fix it
+//  * Player can end his turn without adding anything to the game board
+//  * The game should look better, especially player info and controls on the right side
+//  * The game should better inform player, f.e. tell him what the button does when he hovers over it
+//  * There should be two players and switch turns by clicking the green button
+//  * The currently inactive player can't see any changes being made on the board
+//    until the other player ends his turn, then the updated board shows to him
+//  * Players should be able to play online, one player would start the game and the other one join
+//  * Joining the game should be possible via link that's specific for each game
+//  * Only two players allowed
+//  * The game ends when one of the players has no letters left OR at certain score for quicker game
+//  * Players should have the option to give up
+//  * The difficulty of the game should be evaluated and optimised
+//
+//  *** Optional ***
+//
+//  * Add a chat for players to communicate
+//  * Add special squares that give more points, like in real scrabble
+//  * Animations might be added
+//  * Add time limit and a timer to show it
